@@ -1,42 +1,104 @@
 <?php
-class User {
-    // Data dummy untuk login (tanpa database)
-    private $users = [
-        'admin' => ['password' => 'admin123', 'role' => 'admin', 'id' => 1],
-        'user1' => ['password' => 'user123', 'role' => 'user', 'id' => 2],
-        'user2' => ['password' => 'user123', 'role' => 'user', 'id' => 3]
-    ];
+require_once __DIR__ . '/../config/database.php';
+
+function userLogin($email, $password) {
+    $conn = getConnection();
+    $query = "SELECT user_id, name, email, password_hash, role FROM users WHERE email = :email";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $user = $stmt->fetch();
     
-    // Data dummy untuk dashboard
-    private $dummyUsers = [
-        ['id' => 1, 'username' => 'admin', 'role' => 'admin', 'created_at' => '2024-01-15 10:00:00'],
-        ['id' => 2, 'username' => 'user1', 'role' => 'user', 'created_at' => '2024-01-16 11:30:00'],
-        ['id' => 3, 'username' => 'user2', 'role' => 'user', 'created_at' => '2024-01-17 14:20:00'],
-        ['id' => 4, 'username' => 'user3', 'role' => 'user', 'created_at' => '2024-01-18 09:15:00'],
-        ['id' => 5, 'username' => 'user4', 'role' => 'user', 'created_at' => '2024-01-19 16:45:00']
-    ];
-    
-    public function login($username, $password) {
-        if (isset($this->users[$username]) && $this->users[$username]['password'] === $password) {
-            return $this->users[$username];
-        }
-        return false;
+    if ($user && password_verify($password, $user['password_hash'])) {
+        unset($user['password_hash']);
+        return $user;
     }
-    
-    public function getTotalUsers() {
-        return count(array_filter($this->dummyUsers, function($u) { 
-            return $u['role'] === 'user'; 
-        }));
-    }
-    
-    public function getTotalAdmins() {
-        return count(array_filter($this->dummyUsers, function($u) { 
-            return $u['role'] === 'admin'; 
-        }));
-    }
-    
-    public function getAllUsers() {
-        return $this->dummyUsers;
-    }
+    return false;
 }
 
+function getAllUsers() {
+    $conn = getConnection();
+    $query = "SELECT * FROM users ORDER BY created_at DESC";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getUserById($id) {
+    $conn = getConnection();
+    $query = "SELECT * FROM users WHERE user_id = :id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+
+function createUser($data) {
+    $conn = getConnection();
+    $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+    $query = "INSERT INTO users (name, email, password_hash, role) 
+              VALUES (:name, :email, :password_hash, :role)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':name', $data['name']);
+    $stmt->bindParam(':email', $data['email']);
+    $stmt->bindParam(':password_hash', $hashedPassword);
+    $stmt->bindParam(':role', $data['role']);
+    
+    if ($stmt->execute()) {
+        return $conn->lastInsertId();
+    }
+    return false;
+}
+
+function updateUser($id, $data) {
+    $conn = getConnection();
+    $query = "UPDATE users SET 
+              name = :name,
+              email = :email,
+              role = :role";
+    
+    if (!empty($data['password'])) {
+        $query .= ", password_hash = :password_hash";
+    }
+    
+    $query .= " WHERE user_id = :id";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':name', $data['name']);
+    $stmt->bindParam(':email', $data['email']);
+    $stmt->bindParam(':role', $data['role']);
+    
+    if (!empty($data['password'])) {
+        $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+        $stmt->bindParam(':password_hash', $hashedPassword);
+    }
+    
+    return $stmt->execute();
+}
+
+function deleteUser($id) {
+    $conn = getConnection();
+    $query = "DELETE FROM users WHERE user_id = :id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':id', $id);
+    return $stmt->execute();
+}
+
+function getTotalUsers() {
+    $conn = getConnection();
+    $query = "SELECT COUNT(*) as total FROM users WHERE role = 'student'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result['total'];
+}
+
+function getTotalStaff() {
+    $conn = getConnection();
+    $query = "SELECT COUNT(*) as total FROM users WHERE role = 'staff'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result['total'];
+}

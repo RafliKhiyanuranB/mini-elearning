@@ -103,8 +103,8 @@
         
         <form method="POST" action="index.php?action=login">
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
             
             <div class="form-group">

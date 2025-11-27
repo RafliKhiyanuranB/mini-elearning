@@ -1,34 +1,34 @@
 <?php
 require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../model/Sekolah.php';
+require_once __DIR__ . '/../model/Modul.php';
+require_once __DIR__ . '/../model/Progress.php';
 
-class DashboardController {
-    private $userModel;
-    
-    public function __construct() {
-        $this->userModel = new User();
+function dashboardAdmin() {
+    if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+        header('Location: index.php?action=login');
+        exit;
     }
     
-    public function dashboardAdmin() {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-            header('Location: index.php?action=login');
-            exit;
-        }
-        
-        // Ambil data dari model
-        $totalUsers = $this->userModel->getTotalUsers();
-        $totalAdmins = $this->userModel->getTotalAdmins();
-        $allUsers = $this->userModel->getAllUsers();
-        
-        require_once __DIR__ . '/../view/dashboard_admin.php';
-    }
+    // Ambil data dari model
+    $totalUsers = getTotalUsers();
+    $totalStaff = getTotalStaff();
+    $totalSekolah = getTotalSekolah();
+    $totalModul = getTotalModul();
     
-    public function dashboardUser() {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-            header('Location: index.php?action=login');
-            exit;
-        }
-        
-        require_once __DIR__ . '/../view/dashboard_user.php';
-    }
+    require_once __DIR__ . '/../view/dashboard_admin.php';
 }
 
+function dashboardUser() {
+    if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
+        header('Location: index.php?action=login');
+        exit;
+    }
+    
+    require_once __DIR__ . '/../model/Progress.php';
+    $statistik = getStatistikUser($_SESSION['user_id']);
+    $recentProgress = getProgressByUser($_SESSION['user_id']);
+    $recentProgress = array_slice($recentProgress, 0, 5); // Ambil 5 terakhir
+    
+    require_once __DIR__ . '/../view/dashboard_user.php';
+}

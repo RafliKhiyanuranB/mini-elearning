@@ -1,6 +1,6 @@
 <?php
-$page_title = 'Dashboard User';
-require_once __DIR__ . '/includes/header.php';
+$page_title = 'Progress Saya';
+require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="stats">
@@ -18,13 +18,14 @@ require_once __DIR__ . '/includes/header.php';
     </div>
     <div class="stat-card">
         <h3>Total Waktu Belajar</h3>
-        <div class="number"><?php echo $statistik['total_waktu_belajar'] ?? 0; ?> mnt</div>
+        <div class="number"><?php echo $statistik['total_waktu_belajar'] ?? 0; ?> menit</div>
     </div>
 </div>
 
 <div class="card">
-    <h2>Progress Terakhir</h2>
-    <?php if (empty($recentProgress)): ?>
+    <h2>Detail Progress</h2>
+    
+    <?php if (empty($progress)): ?>
         <p>Anda belum memulai belajar modul apapun</p>
         <a href="index.php?action=modul_index" class="btn btn-primary">Mulai Belajar</a>
     <?php else: ?>
@@ -35,11 +36,13 @@ require_once __DIR__ . '/includes/header.php';
                         <th>Modul</th>
                         <th>Status</th>
                         <th>Progress</th>
+                        <th>Waktu Belajar</th>
+                        <th>Terakhir Diakses</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($recentProgress as $p): ?>
+                    <?php foreach ($progress as $p): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($p['modul_judul']); ?></td>
                             <td>
@@ -57,6 +60,8 @@ require_once __DIR__ . '/includes/header.php';
                                 </div>
                                 <?php echo $p['progress_percent']; ?>%
                             </td>
+                            <td><?php echo $p['waktu_belajar']; ?> menit</td>
+                            <td><?php echo $p['last_accessed'] ? date('d/m/Y H:i', strtotime($p['last_accessed'])) : '-'; ?></td>
                             <td>
                                 <a href="index.php?action=modul_view&id=<?php echo $p['modul_id']; ?>" class="btn btn-sm btn-primary">Lanjutkan</a>
                             </td>
@@ -65,12 +70,8 @@ require_once __DIR__ . '/includes/header.php';
                 </tbody>
             </table>
         </div>
-        <div style="margin-top: 20px;">
-            <a href="index.php?action=progress_index" class="btn btn-secondary">Lihat Semua Progress</a>
-            <a href="index.php?action=leaderboard_index" class="btn btn-primary">🏆 Lihat Perangkingan</a>
-        </div>
     <?php endif; ?>
 </div>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
 
