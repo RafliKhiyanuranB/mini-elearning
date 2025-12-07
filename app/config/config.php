@@ -6,7 +6,7 @@ define('BASE_PATH', dirname(__DIR__));
 
 // Path untuk upload
 define('UPLOAD_PATH', BASE_PATH . '/app/assets/uploads/');
-define('UPLOAD_URL', 'http://localhost/MINI%20E-LEARNING/app/assets/uploads/');
+define('UPLOAD_URL', 'http://localhost/MINI%20E-LEARNING/app/app/assets/uploads/');
 
 // Ukuran maksimal file upload (dalam bytes) - 50MB
 define('MAX_UPLOAD_SIZE', 50 * 1024 * 1024);

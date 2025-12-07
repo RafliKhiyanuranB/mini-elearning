@@ -5,21 +5,35 @@ require_once __DIR__ . '/../config/config.php';
 function validate_upload($file, $allowed_types) {
     $errors = [];
     
-    // Cek apakah file diupload
     if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
-        $errors[] = "File tidak berhasil diupload";
+        $errors[] = "File tidak berhasil diupload (Error Code: " . $file['error'] . ")";
         return $errors;
     }
     
-    // Cek ukuran file
+    // 2. Cek Ukuran
     if ($file['size'] > MAX_UPLOAD_SIZE) {
         $errors[] = "Ukuran file terlalu besar. Maksimal " . (MAX_UPLOAD_SIZE / 1024 / 1024) . " MB";
+        return $errors;
     }
     
-    // Cek tipe file
     $file_type = $file['type'];
-    if (!in_array($file_type, $allowed_types)) {
-        $errors[] = "Tipe file tidak diizinkan. Hanya " . implode(', ', $allowed_types);
+    
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    
+
+    $allowed_extensions = ['mp3', 'wav', 'ogg', 'm4a', 'wma'];
+    $allowed_video_ext = ['mp4', 'webm', 'avi', 'mkv', 'mov'];
+    $is_valid_mime = in_array($file_type, $allowed_types);
+    $is_valid_ext = false;
+    
+    if (in_array('audio/mp3', $allowed_types)) {
+        $is_valid_ext = in_array($extension, $allowed_extensions);
+    } else {
+        $is_valid_ext = in_array($extension, $allowed_video_ext);
+    }
+
+    if (!$is_valid_mime && !$is_valid_ext) {
+        $errors[] = "Tipe file tidak diizinkan. Terdeteksi: $file_type, Ekstensi: $extension";
     }
     
     return $errors;

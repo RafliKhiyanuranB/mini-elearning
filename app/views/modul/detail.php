@@ -19,12 +19,12 @@ require_once __DIR__ . '/../layouts/header.php';
             <div class="media-player">
                 <?php if ($modul['tipe_file'] === 'video'): ?>
                     <video controls width="100%">
-                        <source src="<?php echo UPLOAD_URL . $modul['file_path']; ?>" type="video/mp4">
+                        <source src="<?php echo UPLOAD_URL. $modul['file_path']; ?>" type="video/mp4">
                         Browser Anda tidak mendukung video player.
                     </video>
                 <?php else: ?>
                     <audio controls style="width: 100%;">
-                        <source src="<?php echo UPLOAD_URL . $modul['file_path']; ?>" type="audio/mpeg">
+                        <source src="<?php echo UPLOAD_URL . $modul['file_path'] ?>" type="audio/mpeg">
                         Browser Anda tidak mendukung audio player.
                     </audio>
                 <?php endif; ?>
