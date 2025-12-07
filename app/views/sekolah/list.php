@@ -41,11 +41,13 @@ require_once __DIR__ . '/../layouts/header.php';
                             <td><?php echo htmlspecialchars($sekolah['alamat'] ?? '-'); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($sekolah['created_at'])); ?></td>
                             <td>
+                            <div class="action-buttons">
                                 <a href="<?php echo APP_URL; ?>?page=sekolah&action=edit&id=<?php echo $sekolah['id']; ?>" class="btn btn-sm btn-success">Edit</a>
-                                <a href="<?php echo APP_URL; ?>?page=sekolah&action=ranking&sekolah_id=<?php echo $sekolah['id']; ?>" class="btn btn-sm btn-primary">Ranking</a>
+                                <a href="<?php echo APP_URL; ?>?page=sekolah&action=ranking&sekolah_id=<?php echo $sekolah['id']; ?>" class="btn btn-sm btn-primary2">Ranking</a>
                                 <a href="<?php echo APP_URL; ?>?page=sekolah&action=delete&id=<?php echo $sekolah['id']; ?>" 
                                    class="btn btn-sm btn-danger" 
                                    onclick="return confirm('Yakin ingin menghapus sekolah ini?');">Hapus</a>
+                            </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
