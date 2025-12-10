@@ -2,6 +2,16 @@
 require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../layouts/header.php';
 $page_title = "Dashboard";
+
+// Fungsi helper untuk memotong teks
+if (!function_exists('truncate_text')) {
+    function truncate_text($text, $max_length = 50) {
+        if (mb_strlen($text) <= $max_length) {
+            return $text;
+        }
+        return mb_substr($text, 0, $max_length) . '...';
+    }
+}
 ?>
 
 <div class="container">
@@ -46,10 +56,14 @@ $page_title = "Dashboard";
                     </thead>
                     <tbody>
                         <?php $no = 1; foreach ($progress_list as $progress): ?>
+                            <?php
+                            $modul_judul = truncate_text($progress['modul_judul'] ?? '-', 40);
+                            $pertanyaan = truncate_text($progress['pertanyaan'] ?? '-', 50);
+                            ?>
                             <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td><?php echo htmlspecialchars($progress['modul_judul'] ?? '-'); ?></td>
-                                <td><?php echo htmlspecialchars(substr($progress['pertanyaan'] ?? '-', 0, 50)) . '...'; ?></td>
+                                <td class="table-title" title="<?php echo htmlspecialchars($progress['modul_judul'] ?? '-'); ?>"><?php echo htmlspecialchars($modul_judul); ?></td>
+                                <td class="table-title" title="<?php echo htmlspecialchars($progress['pertanyaan'] ?? '-'); ?>"><?php echo htmlspecialchars($pertanyaan); ?></td>
                                 <td><strong><?php echo $progress['nilai']; ?></strong></td>
                                 <td>
                                     <span class="badge <?php echo $progress['status'] === 'selesai' ? 'badge-success' : 'badge-danger'; ?>">
@@ -72,10 +86,14 @@ $page_title = "Dashboard";
             <?php else: ?>
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
                     <?php foreach ($modul_list as $modul): ?>
+                        <?php
+                        $judul = truncate_text($modul['judul'], 40);
+                        $deskripsi = truncate_text($modul['deskripsi'] ?? 'Tidak ada deskripsi', 80);
+                        ?>
                         <div class="card" style="padding: 20px;">
-                            <h4><?php echo htmlspecialchars($modul['judul']); ?></h4>
-                            <p style="color: #666; margin: 10px 0;">
-                                <?php echo htmlspecialchars(substr($modul['deskripsi'] ?? 'Tidak ada deskripsi', 0, 100)) . '...'; ?>
+                            <h4 class="modul-title" title="<?php echo htmlspecialchars($modul['judul']); ?>"><?php echo htmlspecialchars($judul); ?></h4>
+                            <p class="modul-description" title="<?php echo htmlspecialchars($modul['deskripsi'] ?? 'Tidak ada deskripsi'); ?>">
+                                <?php echo htmlspecialchars($deskripsi); ?>
                             </p>
                             <a href="<?php echo APP_URL; ?>?page=modul&action=detail&id=<?php echo $modul['id']; ?>" class="btn btn-primary btn-sm">Lihat Modul</a>
                         </div>

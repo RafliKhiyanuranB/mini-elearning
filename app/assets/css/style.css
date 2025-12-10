@@ -538,3 +538,35 @@ body {
     border-radius: 8px;
 }
 
+/* Modul Card Text Truncation */
+.modul-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.modul-description {
+    color: #666;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    max-height: 4.5em;
+}
+
+/* Table Title Truncation */
+.table-title {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+

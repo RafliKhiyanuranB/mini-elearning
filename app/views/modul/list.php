@@ -1,6 +1,16 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../layouts/header.php';
+
+// Fungsi helper untuk memotong teks
+if (!function_exists('truncate_text')) {
+    function truncate_text($text, $max_length = 50) {
+        if (mb_strlen($text) <= $max_length) {
+            return $text;
+        }
+        return mb_substr($text, 0, $max_length) . '...';
+    }
+}
 ?>
 
 <div class="container">
@@ -36,9 +46,10 @@ require_once __DIR__ . '/../layouts/header.php';
                     </tr>
                 <?php else: ?>
                     <?php $no = 1; foreach ($modul_list as $modul): ?>
+                        <?php $judul = truncate_text($modul['judul'], 50); ?>
                         <tr>
                             <td><?php echo $no++; ?></td>
-                            <td><?php echo htmlspecialchars($modul['judul']); ?></td>
+                            <td class="table-title" title="<?php echo htmlspecialchars($modul['judul']); ?>"><?php echo htmlspecialchars($judul); ?></td>
                             <td>
                                 <span class="badge badge-primary">
                                     <?php echo ucfirst($modul['tipe_file']); ?>
