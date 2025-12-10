@@ -82,7 +82,29 @@ INSERT INTO sekolah (nama_sekolah, alamat) VALUES
 INSERT INTO users (username, password, nama, role, sekolah_id) VALUES 
 ('admin', '$2y$10$4E8WhOHE6x7pdH/J5dv4Bub4bYoK9VoCSc679VKLRiMCND9F1Xn.i', 'Administrator', 'admin', 1);
 
--- Insert user default (password: user123)
+-- Insert 10 users (password: user123)
 INSERT INTO users (username, password, nama, role, sekolah_id) VALUES 
-('user1', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'User Test', 'user', 1);
+('user1', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'rapli', 'user', 1),
+('user2', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'dika', 'user', 1),
+('user3', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'zaki', 'user', 1),
+('user4', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'doni', 'user', 1),
+('user5', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'budi', 'user', 1),
+('user6', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'andi', 'user', 1),
+('user7', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'susi', 'user', 1),
+('user8', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'sinta', 'user', 1),
+('user9', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'rina', 'user', 1),
+('user10', '$2y$10$DXMhuly.d.zpzhuDT07YNeDpNAfEjhGJHVUBTp3eKRpIUaiVzJS4C', 'linda', 'user', 1);
+
+-- 10 modul materi bahasa inggris
+INSERT INTO modul (judul, deskripsi, file_path, tipe_file, urutan) VALUES 
+('Introduction to English Grammar', 'An introduction to basic English grammar principles', 'modul/english_grammar.mp4', 'video', 1),
+('Vocabulary Building', 'Expand your English vocabulary with practical words and phrases', 'modul/vocabulary_building.mp4', 'video', 2),
+('Simple Present Tense', 'Learn how to use the simple present tense in English', 'modul/simple_present_tense.mp4', 'video', 3),
+('Listening Practice: Daily Conversations', 'Practice listening skills with common English conversations', 'modul/listening_conversations.mp3', 'audio', 4),
+('Writing an Email', 'Step-by-step guide to writing formal and informal emails in English', 'modul/writing_email.mp4', 'video', 5),
+('Reading Comprehension: Short Stories', 'Improve your reading skills with short English stories', 'modul/reading_short_stories.mp4', 'video', 6),
+('Pronunciation Basics', 'Master basic English pronunciation rules and practice', 'modul/pronunciation_basics.mp3', 'audio', 7),
+('Common English Idioms', 'Learn commonly used idioms and their meanings in English', 'modul/common_idioms.mp4', 'video', 8),
+('Speaking Practice: Introducing Yourself', 'Practice introducing yourself in various situations', 'modul/speaking_introduction.mp4', 'video', 9),
+('English for Everyday Situations', 'Utilize English language in daily life scenarios', 'modul/everyday_english.mp4', 'video', 10);
 
