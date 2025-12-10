@@ -511,3 +511,30 @@ body {
     }
 }
 
+/* Media Upload */
+.video-wrapper {
+    width: 100%;
+    height: 450px; /* TINGGI TETAP: Ubah angka ini sesuai selera (misal 500px) */
+    background-color: #000; /* Latar belakang hitam */
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;            /* Agar video ada di tengah */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Videonya */
+.video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* KUNCI RAHASIA: Video menyesuaikan diri tanpa gepeng */
+}
+
+/* Audio tidak perlu tinggi 450px, jadi kita pisah style-nya */
+.audio-wrapper {
+    width: 100%;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+

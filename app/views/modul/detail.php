@@ -16,23 +16,27 @@ require_once __DIR__ . '/../layouts/header.php';
         </div>
         
         <?php if ($modul['file_path']): ?>
-            <div class="media-player">
-                <?php if ($modul['tipe_file'] === 'video'): ?>
-                    <video controls width="100%">
+            <?php if ($modul['tipe_file'] === 'video'): ?>
+                <div class="video-wrapper">
+                    <video controls>
                         <source src="<?php echo UPLOAD_URL. $modul['file_path']; ?>" type="video/mp4">
                         Browser Anda tidak mendukung video player.
                     </video>
-                <?php else: ?>
+                </div>
+
+            <?php else: ?>
+                <div class="audio-wrapper">
                     <audio controls style="width: 100%;">
                         <source src="<?php echo UPLOAD_URL . $modul['file_path'] ?>" type="audio/mpeg">
                         Browser Anda tidak mendukung audio player.
                     </audio>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
             
             <div style="margin-top: 20px;">
                 <a href="<?php echo APP_URL; ?>?page=quiz&action=view&modul_id=<?php echo $modul['id']; ?>" class="btn btn-primary">Kerjakan Quiz</a>
             </div>
+
         <?php else: ?>
             <div class="alert alert-error">File tidak ditemukan</div>
         <?php endif; ?>
