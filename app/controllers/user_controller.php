@@ -31,7 +31,7 @@ function user_create() {
         $password = $_POST['password'] ?? '';
         $nama = trim($_POST['nama'] ?? '');
         $role = $_POST['role'] ?? 'user';
-        $sekolah_id = $_POST['sekolah_id'] ?? null;
+        $sekolah_id = !empty($_POST['sekolah_id']) ? intval($_POST['sekolah_id']) : null;
         
         // Validasi
         if (empty($username) || empty($password) || empty($nama)) {
@@ -85,12 +85,12 @@ function user_update() {
     require_admin();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'] ?? 0;
+        $id = intval($_POST['id'] ?? 0);
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
         $nama = trim($_POST['nama'] ?? '');
         $role = $_POST['role'] ?? 'user';
-        $sekolah_id = $_POST['sekolah_id'] ?? null;
+        $sekolah_id = !empty($_POST['sekolah_id']) ? intval($_POST['sekolah_id']) : null;
         
         // Validasi
         if (empty($username) || empty($nama)) {

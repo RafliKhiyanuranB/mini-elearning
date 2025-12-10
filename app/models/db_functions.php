@@ -18,7 +18,7 @@ function db_query($sql, $params = []) {
 function db_fetch_all($sql, $params = []) {
     $stmt = db_query($sql, $params);
     if ($stmt) {
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     return [];
 }
@@ -27,7 +27,7 @@ function db_fetch_all($sql, $params = []) {
 function db_fetch_one($sql, $params = []) {
     $stmt = db_query($sql, $params);
     if ($stmt) {
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     return false;
 }
@@ -48,8 +48,8 @@ function db_insert($sql, $params = []) {
 // Helper function untuk update/delete
 function db_execute($sql, $params = []) {
     $stmt = db_query($sql, $params);
-    if ($stmt) {
-        return $stmt->rowCount();
+    if ($stmt !== false) {
+        return true;
     }
     return false;
 }

@@ -46,11 +46,10 @@ switch ($page) {
                 }
                 break;
             case 'edit':
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    user_update();
-                } else {
-                    user_edit_form();
-                }
+                user_edit_form();
+                break;
+            case 'update':
+                user_update();
                 break;
             case 'delete':
                 user_delete();
@@ -73,11 +72,10 @@ switch ($page) {
                 }
                 break;
             case 'edit':
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    sekolah_update();
-                } else {
-                    sekolah_edit_form();
-                }
+                sekolah_edit_form();
+                break;
+            case 'update':
+                sekolah_update();
                 break;
             case 'delete':
                 sekolah_delete();
@@ -109,11 +107,10 @@ switch ($page) {
                 }
                 break;
             case 'edit':
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    modul_update();
-                } else {
-                    modul_edit_form();
-                }
+                modul_edit_form();
+                break;
+            case 'update':
+                modul_update();
                 break;
             case 'delete':
                 modul_delete();
@@ -152,11 +149,10 @@ switch ($page) {
                 }
                 break;
             case 'edit':
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    quiz_update();
-                } else {
-                    quiz_edit_form();
-                }
+                quiz_edit_form();
+                break;
+            case 'update':
+                quiz_update();
                 break;
             case 'delete':
                 quiz_delete();

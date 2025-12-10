@@ -111,7 +111,7 @@ function quiz_update() {
     require_admin();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'] ?? 0;
+        $id = intval($_POST['id'] ?? 0);
         $modul_id = intval($_POST['modul_id'] ?? 0);
         $pertanyaan = trim($_POST['pertanyaan'] ?? '');
         $pilihan_a = trim($_POST['pilihan_a'] ?? '');

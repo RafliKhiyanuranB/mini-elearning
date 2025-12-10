@@ -118,7 +118,7 @@ function modul_update() {
     require_admin();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'] ?? 0;
+        $id = intval($_POST['id'] ?? 0);
         $judul = trim($_POST['judul'] ?? '');
         $deskripsi = trim($_POST['deskripsi'] ?? '');
         $tipe_file = $_POST['tipe_file'] ?? 'video';

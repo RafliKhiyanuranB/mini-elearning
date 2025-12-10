@@ -68,7 +68,7 @@ function sekolah_update() {
     require_admin();
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'] ?? 0;
+        $id = intval($_POST['id'] ?? 0);
         $nama_sekolah = trim($_POST['nama_sekolah'] ?? '');
         $alamat = trim($_POST['alamat'] ?? '');
         
