@@ -37,20 +37,20 @@ $page_title = "Dashboard Admin";
                 <h3>Manajemen User</h3>
                 <p style="color: #666;">Kelola data user</p>
             </a>
-            
-            <a href="<?php echo APP_URL; ?>?page=sekolah&action=list" class="card" style="text-decoration: none; text-align: center; padding: 20px;">
-                <h3>Manajemen Sekolah</h3>
-                <p style="color: #666;">Kelola data sekolah</p>
-            </a>
-            
+
             <a href="<?php echo APP_URL; ?>?page=modul&action=list" class="card" style="text-decoration: none; text-align: center; padding: 20px;">
                 <h3>Modul Belajar</h3>
                 <p style="color: #666;">Kelola modul belajar</p>
             </a>
-            
+
             <a href="<?php echo APP_URL; ?>?page=quiz&action=list" class="card" style="text-decoration: none; text-align: center; padding: 20px;">
                 <h3>Quiz</h3>
                 <p style="color: #666;">Kelola quiz dan latihan</p>
+            </a>
+            
+            <a href="<?php echo APP_URL; ?>?page=sekolah&action=list" class="card" style="text-decoration: none; text-align: center; padding: 20px;">
+                <h3>Manajemen Sekolah</h3>
+                <p style="color: #666;">Kelola data sekolah</p>
             </a>
         </div>
     </div>
